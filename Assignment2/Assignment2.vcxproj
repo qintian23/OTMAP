@@ -140,10 +140,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CutGraph.cpp" />
     <ClCompile Include="HarmonicMap.cpp" />
     <ClCompile Include="Viewer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CutGraph.h" />
+    <ClInclude Include="CutGraphMesh.h" />
     <ClInclude Include="HarmonicMap.h" />
     <ClInclude Include="HarmonicMapMesh.h" />
   </ItemGroup>

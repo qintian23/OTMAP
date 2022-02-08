@@ -9,8 +9,8 @@
 #endif // MAC_OS
 
 #include "viewer/Arcball.h" /*  Arc Ball  Interface         */
-#include "HarmonicMapMesh.h"
-#include "HarmonicMap.h"
+#include "CutGraphMesh.h"
+#include "CutGraph.h"
 
 using namespace MeshLib;
 
@@ -19,8 +19,6 @@ int g_win_width, g_win_height;
 int g_button;
 int g_startx, g_starty;
 int g_shade_flag = 0;
-bool g_show_mesh = true;
-bool g_show_uv = false;
 
 /* rotation quaternion and translation vector for the object */
 CQrot g_obj_rot(0, 0, 1, 0);
@@ -30,8 +28,7 @@ CPoint g_obj_trans(0, 0, 0);
 CArcball g_arcball;
 
 /* global g_mesh */
-CHarmonicMapMesh g_mesh;
-CHarmonicMap g_mapper;
+CCutGraphMesh g_mesh;
 
 /*! setup the object, transform from the world to the object coordinate system */
 void setupObject(void)
@@ -65,15 +62,15 @@ void drawMesh()
     glEnable(GL_LIGHTING);
 
     glLineWidth(1.0);
-    for (CHarmonicMapMesh::MeshFaceIterator fiter(&g_mesh); !fiter.end(); ++fiter)
+    glColor3f(229.0 / 255.0, 162.0 / 255.0, 141.0 / 255.0);
+    for (CCutGraphMesh::MeshFaceIterator fiter(&g_mesh); !fiter.end(); ++fiter)
     {
         glBegin(GL_POLYGON);
-        CHarmonicMapFace* pF = *fiter;
-        for (CHarmonicMapMesh::FaceVertexIterator fviter(pF); !fviter.end(); ++fviter)
+        CCutGraphFace* pF = *fiter;
+        for (CCutGraphMesh::FaceVertexIterator fviter(pF); !fviter.end(); ++fviter)
         {
-            CHarmonicMapVertex* pV = *fviter;
+            CCutGraphVertex* pV = *fviter;
             CPoint& p = pV->point();
-            CPoint& rgb = pV->rgb();
             CPoint n;
             switch (g_shade_flag)
             {
@@ -85,45 +82,31 @@ void drawMesh()
                     break;
             }
             glNormal3d(n[0], n[1], n[2]);
-            glColor3f(rgb[0], rgb[1], rgb[2]);
             glVertex3d(p[0], p[1], p[2]);
         }
         glEnd();
     }
 }
 
-/*! draw g_mesh */
-void drawUv()
+void drawSharpEdges()
 {
-    glEnable(GL_LIGHTING);
+    glDisable(GL_LIGHTING);
 
-    glLineWidth(1.0);
-    glColor3f(229.0 / 255.0, 162.0 / 255.0, 141.0 / 255.0);
-    for (CHarmonicMapMesh::MeshFaceIterator fiter(&g_mesh); !fiter.end(); ++fiter)
+    glLineWidth(2.);
+    glColor3f(1.0f, 1.0f, 0.0f);
+    glBegin(GL_LINES);
+    for (CCutGraphMesh::MeshEdgeIterator eiter(&g_mesh); !eiter.end(); ++eiter)
     {
-        glBegin(GL_POLYGON);
-        CHarmonicMapFace* pF = *fiter;
-        for (CHarmonicMapMesh::FaceVertexIterator fviter(pF); !fviter.end(); ++fviter)
+        CCutGraphEdge* pE = *eiter;
+        if (pE->sharp() == true)
         {
-            CHarmonicMapVertex* pV = *fviter;
-            CPoint2& uv = pV->uv();
-            CPoint& rgb = pV->rgb();
-            CPoint n;
-            switch (g_shade_flag)
-            {
-                case 0:
-                    n = pF->normal();
-                    break;
-                case 1:
-                    n = pV->normal();
-                    break;
-            }
-            glNormal3d(n[0], n[1], n[2]);
-            glColor3f(rgb[0], rgb[1], rgb[2]);
-            glVertex3d(uv[0], uv[1], 0);
+            CCutGraphVertex* p0 = g_mesh.edgeVertex1(pE);
+            CCutGraphVertex* p1 = g_mesh.edgeVertex2(pE);
+            glVertex3f(p0->point()[0], p0->point()[1], p0->point()[2]);
+            glVertex3f(p1->point()[0], p1->point()[1], p1->point()[2]);
         }
-        glEnd();
     }
+    glEnd();
 }
 
 /*! display call back function
@@ -139,11 +122,10 @@ void display()
     /* transform from the world to the ojbect coordinate system */
     setupObject();
 
+    /* draw sharp edges */
+    drawSharpEdges();
     /* draw the mesh */
-    if (g_show_mesh)
-        drawMesh();
-    if (g_show_uv)
-        drawUv();
+    drawMesh();
     
     glPopMatrix();
     glutSwapBuffers();
@@ -175,16 +157,11 @@ void reshape(int w, int h)
 /*! helper function to remind the user about commands, hot keys */
 void help()
 {
-    printf("1  -  Show or hide mesh\n");
-    printf("2  -  Show or hide uv\n");
-    printf("n  -  Take next one step of iterative method\n");
-    printf("i  -  Iterative method of harmonic map\n");
-    printf("h  -  Directly solve the equations\n");
     printf("w  -  Wireframe Display\n");
     printf("f  -  Flat Shading \n");
     printf("s  -  Smooth Shading\n");
     printf("?  -  Help Information\n");
-    printf("esc - Quit\n");
+    printf("esc - quit\n");
 }
 
 /*! Keyboard call back function */
@@ -192,26 +169,6 @@ void keyBoard(unsigned char key, int x, int y)
 {
     switch (key)
     {
-        case '1':
-            // Show or hide mesh
-            g_show_mesh = !g_show_mesh;
-            break;
-        case '2':
-            // Show or hide uv
-            g_show_uv = !g_show_uv;
-            break;
-        case 'n':
-            // take next one step
-            g_mapper.step_one();
-            break;
-        case 'i':
-            // iterative method of harmonic map
-            g_mapper.iterative_map();
-            break;
-        case 'h':
-            // directly solve the equations
-            g_mapper.map();
-            break;
         case 'f':
             // Flat Shading
             glPolygonMode(GL_FRONT, GL_FILL);
@@ -282,7 +239,7 @@ void setupGLstate()
 /*! mouse click call back function */
 void mouseClick(int button, int state, int x, int y)
 {
-    /* set up an arcball around the Eye's center
+    /* set up an g_arcball around the Eye's center
     switch y coordinates to right handed system  */
 
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
@@ -350,28 +307,28 @@ void mouseMove(int x, int y)
 /*! Normalize g_mesh
  * \param pMesh the input g_mesh
  */
-void normalizeMesh(CHarmonicMapMesh* pMesh)
+void normalizeMesh(CCutGraphMesh* pMesh)
 {
     CPoint s(0, 0, 0);
-    for (CHarmonicMapMesh::MeshVertexIterator viter(pMesh); !viter.end(); ++viter)
+    for (CCutGraphMesh::MeshVertexIterator viter(pMesh); !viter.end(); ++viter)
     {
-        CHarmonicMapVertex* v = *viter;
+        CCutGraphVertex* v = *viter;
         s = s + v->point();
     }
     s = s / pMesh->numVertices();
 
-    for (CHarmonicMapMesh::MeshVertexIterator viter(pMesh); !viter.end(); ++viter)
+    for (CCutGraphMesh::MeshVertexIterator viter(pMesh); !viter.end(); ++viter)
     {
-        CHarmonicMapVertex* v = *viter;
+        CCutGraphVertex* v = *viter;
         CPoint p = v->point();
         p = p - s;
         v->point() = p;
     }
 
     double d = 0;
-    for (CHarmonicMapMesh::MeshVertexIterator viter(pMesh); !viter.end(); ++viter)
+    for (CCutGraphMesh::MeshVertexIterator viter(pMesh); !viter.end(); ++viter)
     {
-        CHarmonicMapVertex* v = *viter;
+        CCutGraphVertex* v = *viter;
         CPoint p = v->point();
         for (int k = 0; k < 3; k++)
         {
@@ -379,9 +336,9 @@ void normalizeMesh(CHarmonicMapMesh* pMesh)
         }
     }
 
-    for (CHarmonicMapMesh::MeshVertexIterator viter(pMesh); !viter.end(); ++viter)
+    for (CCutGraphMesh::MeshVertexIterator viter(pMesh); !viter.end(); ++viter)
     {
-        CHarmonicMapVertex* v = *viter;
+        CCutGraphVertex* v = *viter;
         CPoint p = v->point();
         p = p / d;
         v->point() = p;
@@ -391,15 +348,15 @@ void normalizeMesh(CHarmonicMapMesh* pMesh)
 /*! Compute the face normal and vertex normal
  * \param pMesh the input g_mesh
  */
-void computeNormal(CHarmonicMapMesh* pMesh)
+void computeNormal(CCutGraphMesh* pMesh)
 {
-    for (CHarmonicMapMesh::MeshVertexIterator viter(pMesh); !viter.end(); ++viter)
+    for (CCutGraphMesh::MeshVertexIterator viter(pMesh); !viter.end(); ++viter)
     {
-        CHarmonicMapVertex* v = *viter;
+        CCutGraphVertex* v = *viter;
         CPoint n(0, 0, 0);
-        for (CHarmonicMapMesh::VertexFaceIterator vfiter(v); !vfiter.end(); ++vfiter)
+        for (CCutGraphMesh::VertexFaceIterator vfiter(v); !vfiter.end(); ++vfiter)
         {
-            CHarmonicMapFace* pF = *vfiter;
+            CCutGraphFace* pF = *vfiter;
 
             CPoint p[3];
             CHalfEdge* he = pF->halfedge();
@@ -438,18 +395,16 @@ void initOpenGL(int argc, char* argv[])
     glutMainLoop(); /* Start GLUT event-processing loop */
 }
 
+void cut_graph(CCutGraphMesh* pMesh)
+{
+    CCutGraph cg(pMesh);
+    cg.cut_graph();
+}
+
 /*! main function for viewer
  */
 int main(int argc, char* argv[])
 {
-
-    // 初始化参数：方便调试
-    char path[] = "Assignment2.exe";
-    char file[] = "..\\Assignment2\\data\\boy.m";
-    char* input[] = { path, file };
-    argv = input;
-    argc = 2;
-
     if (argc < 2)
     {
         printf("Usage: %s input.m\n", argv[0]);
@@ -470,7 +425,7 @@ int main(int argc, char* argv[])
     normalizeMesh(&g_mesh);
     computeNormal(&g_mesh);
 
-    g_mapper.set_mesh(&g_mesh);
+    cut_graph(&g_mesh);
 
     initOpenGL(argc, argv);
     return EXIT_SUCCESS;
