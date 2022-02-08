@@ -24,9 +24,6 @@
     <ClCompile Include="HarmonicMap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CutGraph.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Viewer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -36,12 +33,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HarmonicMapMesh.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CutGraph.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CutGraphMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

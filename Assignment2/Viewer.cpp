@@ -40,7 +40,7 @@ void setupObject(void)
 
     glTranslated(g_obj_trans[0], g_obj_trans[1], g_obj_trans[2]);
     g_obj_rot.convert(rot);
-    glMultMatrixd((GLdouble*) rot);
+    glMultMatrixd((GLdouble*)rot);
 }
 
 /*! the eye is always fixed at world z = +5 */
@@ -53,8 +53,8 @@ void setupEye(void)
 /*! setup light */
 void setupLight()
 {
-    GLfloat lightOnePosition[4] = {0, 0, 1, 0};
-    GLfloat lightTwoPosition[4] = {0, 0, -1, 0};
+    GLfloat lightOnePosition[4] = { 0, 0, 1, 0 };
+    GLfloat lightTwoPosition[4] = { 0, 0, -1, 0 };
     glLightfv(GL_LIGHT1, GL_POSITION, lightOnePosition);
     glLightfv(GL_LIGHT2, GL_POSITION, lightTwoPosition);
 }
@@ -77,12 +77,12 @@ void drawMesh()
             CPoint n;
             switch (g_shade_flag)
             {
-                case 0:
-                    n = pF->normal();
-                    break;
-                case 1:
-                    n = pV->normal();
-                    break;
+            case 0:
+                n = pF->normal();
+                break;
+            case 1:
+                n = pV->normal();
+                break;
             }
             glNormal3d(n[0], n[1], n[2]);
             glColor3f(rgb[0], rgb[1], rgb[2]);
@@ -111,12 +111,12 @@ void drawUv()
             CPoint n;
             switch (g_shade_flag)
             {
-                case 0:
-                    n = pF->normal();
-                    break;
-                case 1:
-                    n = pV->normal();
-                    break;
+            case 0:
+                n = pF->normal();
+                break;
+            case 1:
+                n = pV->normal();
+                break;
             }
             glNormal3d(n[0], n[1], n[2]);
             glColor3f(rgb[0], rgb[1], rgb[2]);
@@ -144,7 +144,7 @@ void display()
         drawMesh();
     if (g_show_uv)
         drawUv();
-    
+
     glPopMatrix();
     glutSwapBuffers();
 }
@@ -153,19 +153,19 @@ void display()
 void reshape(int w, int h)
 {
     float ar;
-    
+
     g_win_width = w;
     g_win_height = h;
 
-    ar = (float) (w) / h;
+    ar = (float)(w) / h;
     glViewport(0, 0, w, h); /* Set Viewport */
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     gluPerspective(40.0, /* field of view in degrees */
-                   ar,   /* aspect ratio */
-                   0.1,  /* Z near */
-                   100.0 /* Z far */);
+        ar,   /* aspect ratio */
+        0.1,  /* Z near */
+        100.0 /* Z far */);
 
     glMatrixMode(GL_MODELVIEW);
 
@@ -192,46 +192,46 @@ void keyBoard(unsigned char key, int x, int y)
 {
     switch (key)
     {
-        case '1':
-            // Show or hide mesh
-            g_show_mesh = !g_show_mesh;
-            break;
-        case '2':
-            // Show or hide uv
-            g_show_uv = !g_show_uv;
-            break;
-        case 'n':
-            // take next one step
-            g_mapper.step_one();
-            break;
-        case 'i':
-            // iterative method of harmonic map
-            g_mapper.iterative_map();
-            break;
-        case 'h':
-            // directly solve the equations
-            g_mapper.map();
-            break;
-        case 'f':
-            // Flat Shading
-            glPolygonMode(GL_FRONT, GL_FILL);
-            g_shade_flag = 0;
-            break;
-        case 's':
-            // Smooth Shading
-            glPolygonMode(GL_FRONT, GL_FILL);
-            g_shade_flag = 1;
-            break;
-        case 'w':
-            // Wireframe mode
-            glPolygonMode(GL_FRONT, GL_LINE);
-            break;
-        case '?':
-            help();
-            break;
-        case 27:
-            exit(0);
-            break;
+    case '1':
+        // Show or hide mesh
+        g_show_mesh = !g_show_mesh;
+        break;
+    case '2':
+        // Show or hide uv
+        g_show_uv = !g_show_uv;
+        break;
+    case 'n':
+        // take next one step
+        g_mapper.step_one();
+        break;
+    case 'i':
+        // iterative method of harmonic map
+        g_mapper.iterative_map();
+        break;
+    case 'h':
+        // directly solve the equations
+        g_mapper.map();
+        break;
+    case 'f':
+        // Flat Shading
+        glPolygonMode(GL_FRONT, GL_FILL);
+        g_shade_flag = 0;
+        break;
+    case 's':
+        // Smooth Shading
+        glPolygonMode(GL_FRONT, GL_FILL);
+        g_shade_flag = 1;
+        break;
+    case 'w':
+        // Wireframe mode
+        glPolygonMode(GL_FRONT, GL_LINE);
+        break;
+    case '?':
+        help();
+        break;
+    case 27:
+        exit(0);
+        break;
     }
     glutPostRedisplay();
 }
@@ -239,10 +239,10 @@ void keyBoard(unsigned char key, int x, int y)
 /*! setup GL states */
 void setupGLstate()
 {
-    GLfloat lightOneColor[] = {1, 1, 1, 1.0};
-    GLfloat globalAmb[] = {.1, .1, .1, 1};
-    GLfloat lightOnePosition[] = {.0, 0.0, 1.0, 1.0};
-    GLfloat lightTwoPosition[] = {.0, 0.0, -1.0, 1.0};
+    GLfloat lightOneColor[] = { 1, 1, 1, 1.0 };
+    GLfloat globalAmb[] = { .1, .1, .1, 1 };
+    GLfloat lightOnePosition[] = { .0, 0.0, 1.0, 1.0 };
+    GLfloat lightTwoPosition[] = { .0, 0.0, -1.0, 1.0 };
 
     glEnable(GL_CULL_FACE);
     glFrontFace(GL_CCW);
@@ -264,14 +264,14 @@ void setupGLstate()
     glLightfv(GL_LIGHT1, GL_POSITION, lightOnePosition);
     glLightfv(GL_LIGHT2, GL_POSITION, lightTwoPosition);
 
-    const GLfloat specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+    const GLfloat specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
     glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 64.0f);
 
-    GLfloat mat_ambient[] = {0.0f, 0.0f, 0.0f, 1.0f};
-    GLfloat mat_diffuse[] = {0.01f, 0.01f, 0.01f, 1.0f};
-    GLfloat mat_specular[] = {0.5f, 0.5f, 0.5f, 1.0f};
-    GLfloat mat_shininess[] = {32};
+    GLfloat mat_ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+    GLfloat mat_diffuse[] = { 0.01f, 0.01f, 0.01f, 1.0f };
+    GLfloat mat_specular[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+    GLfloat mat_shininess[] = { 32 };
 
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambient);
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse);
@@ -288,10 +288,10 @@ void mouseClick(int button, int state, int x, int y)
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
         g_button = GLUT_LEFT_BUTTON;
-        g_arcball = CArcball(g_win_width, 
-                             g_win_height, 
-                             x - g_win_width / 2, 
-                             g_win_height - y - g_win_height / 2);
+        g_arcball = CArcball(g_win_width,
+            g_win_height,
+            x - g_win_width / 2,
+            g_win_height - y - g_win_height / 2);
     }
 
     if (button == GLUT_MIDDLE_BUTTON && state == GLUT_DOWN)
@@ -442,7 +442,6 @@ void initOpenGL(int argc, char* argv[])
  */
 int main(int argc, char* argv[])
 {
-
     // 初始化参数：方便调试
     char path[] = "Assignment2.exe";
     char file[] = "..\\Assignment2\\data\\boy.m";
@@ -466,6 +465,8 @@ int main(int argc, char* argv[])
         printf("Only file format .m supported.\n");
         return EXIT_FAILURE;
     }
+
+    help();
 
     normalizeMesh(&g_mesh);
     computeNormal(&g_mesh);
