@@ -3,9 +3,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>G:\zuoye\graduate\OTMAP\3rdparty\freeglut\include;G:\zuoye\graduate\OTMAP\3rdparty\MeshLib\core;$(IncludePath)</IncludePath>
-    <LibraryPath>G:\zuoye\graduate\OTMAP\3rdparty\freeglut\lib\x64;$(LibraryPath)</LibraryPath>
-    <_PropertySheetDisplayName>OTX64PropertySheet</_PropertySheetDisplayName>
+    <IncludePath>G:\zuoye\OTMAP\3rdparty\freeglut\include;G:\zuoye\OTMAP\3rdparty\MeshLib\core;$(IncludePath)</IncludePath>
+    <LibraryPath>G:\zuoye\OTMAP\3rdparty\freeglut\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
