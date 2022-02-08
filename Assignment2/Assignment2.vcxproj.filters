@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="资源文件\data">
+      <UniqueIdentifier>{8bd61ef8-16f2-4b12-88cb-d2cdf26ffd01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\resources">
+      <UniqueIdentifier>{bf43ad08-11cb-4a7d-9ded-0867a58c3843}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HarmonicMap.cpp">
@@ -29,5 +35,39 @@
     <ClInclude Include="HarmonicMapMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\boy.m">
+      <Filter>资源文件\data</Filter>
+    </None>
+    <None Include="data\demo_boy.bat">
+      <Filter>资源文件\data</Filter>
+    </None>
+    <None Include="data\demo_girl.bat">
+      <Filter>资源文件\data</Filter>
+    </None>
+    <None Include="data\eight.m">
+      <Filter>资源文件\data</Filter>
+    </None>
+    <None Include="data\girl.m">
+      <Filter>资源文件\data</Filter>
+    </None>
+    <None Include="data\torus.m">
+      <Filter>资源文件\data</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\boy.png">
+      <Filter>资源文件\resources</Filter>
+    </Image>
+    <Image Include="resources\boy_harmonic_map.png">
+      <Filter>资源文件\resources</Filter>
+    </Image>
+    <Image Include="resources\eight_cut_graph.png">
+      <Filter>资源文件\resources</Filter>
+    </Image>
+    <Image Include="resources\torus_cut_graph.png">
+      <Filter>资源文件\resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

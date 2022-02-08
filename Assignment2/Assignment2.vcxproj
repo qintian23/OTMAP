@@ -147,6 +147,20 @@
     <ClInclude Include="HarmonicMap.h" />
     <ClInclude Include="HarmonicMapMesh.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data\boy.m" />
+    <None Include="data\demo_boy.bat" />
+    <None Include="data\demo_girl.bat" />
+    <None Include="data\eight.m" />
+    <None Include="data\girl.m" />
+    <None Include="data\torus.m" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\boy.png" />
+    <Image Include="resources\boy_harmonic_map.png" />
+    <Image Include="resources\eight_cut_graph.png" />
+    <Image Include="resources\torus_cut_graph.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

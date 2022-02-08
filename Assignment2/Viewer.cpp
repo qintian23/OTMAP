@@ -442,6 +442,13 @@ void initOpenGL(int argc, char* argv[])
  */
 int main(int argc, char* argv[])
 {
+    // 初始化参数：方便调试
+    char path[] = "Assignment2.exe";
+    char file[] = "..\\Assignment2\\data\\boy.m";
+    char* input[] = { path, file };
+    argv = input;
+    argc = 2;
+
     if (argc < 2)
     {
         printf("Usage: %s input.m\n", argv[0]);

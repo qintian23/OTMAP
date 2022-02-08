@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>G:\zuoye\OTMAP\3rdparty\freeglut\include;G:\zuoye\OTMAP\3rdparty\MeshLib\core;$(IncludePath)</IncludePath>
+    <IncludePath>G:\zuoye\OTMAP\3rdparty\freeglut\include;G:\zuoye\OTMAP\3rdparty\MeshLib\core;G:\zuoye\OTMAP\3rdparty\eigen;$(IncludePath)</IncludePath>
     <LibraryPath>G:\zuoye\OTMAP\3rdparty\freeglut\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
