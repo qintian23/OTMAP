@@ -15,18 +15,18 @@
 using namespace DartLib;
 using namespace ConvexHull;
 
-/* window width and height */
+/* 窗宽和窗高 */
 int g_win_width, g_win_height;
 int g_button;
 int g_startx, g_starty;
 bool g_show_mesh = true;
 bool g_show_site = true;
 
-/* rotation quaternion and translation vector for the object */
+/* 对象的旋转四元数和平移向量 */
 CQrot g_obj_rot(0, 0, 1, 0);
 CPoint g_obj_trans(0, 0, 0);
 
-/* arcball object */
+/* 弧球物体 */
 CArcball g_arcball;
 
 /* global convexhull object */

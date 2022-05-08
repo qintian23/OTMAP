@@ -13,7 +13,7 @@ CConvexHull::CConvexHull() : m_max_vertex_id(0), m_max_face_id(0)
 
 void CConvexHull::init(size_t num_pts)
 {
-    // 1. randomly generate the input points
+    // 1. 随机生成输入点
     srand((unsigned) time(NULL)); 
     double n[3];
     for (int i = 0; i < num_pts; ++i)
@@ -35,7 +35,7 @@ void CConvexHull::init(size_t num_pts)
         m_sites.push_back(p);
     }
 
-    // 2. construst an initial convex hull with double faces
+    // 2. 构造具有双面的初始凸包
     using M = CConvexHullMesh;
     m_max_vertex_id = 0;
     m_max_face_id   = 0;
@@ -76,12 +76,22 @@ void CConvexHull::construct()
     }
     printf("\n");
 }
+/*!
 
+*确定由一个面和一个点构成的体积的符号
+
+*\param[in]pF：面指针
+
+*\param[in]p：点参考
+
+*\返回+1、-1或0
+
+*/
 int CConvexHull::_volume_sign(CConvexHullMesh::CFace* f, const CPoint& p) 
 {
     CConvexHullMesh::CVertex* v[3];
     CConvexHullMesh::CDart* pD = m_pMesh.face_dart(f);
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 3; ++i) // 选取三个点
     {
         v[i] = m_pMesh.dart_vertex(pD);
         pD   = m_pMesh.dart_next(pD);
@@ -90,7 +100,11 @@ int CConvexHull::_volume_sign(CConvexHullMesh::CFace* f, const CPoint& p)
     //insert your code here
     return -1;
 }
-
+/*!
+*确定点是否位于当前凸包内
+*\param[in]p：点参考
+*\如果p位于凸包内，则返回true，否则返回false
+*/
 bool CConvexHull::_inside(const CPoint& p)
 { 
     using M = CConvexHullMesh;
@@ -98,6 +112,10 @@ bool CConvexHull::_inside(const CPoint& p)
     return true;
 }
 
+/*!
+*移除从p点可见的面
+*\param[in]p：观察者
+*/
 void CConvexHull::_remove_visiable(const CPoint& p) 
 {
     using M = CConvexHullMesh;
@@ -155,7 +173,10 @@ void CConvexHull::_remove_faces(const std::vector<CConvexHullMesh::CFace*>& face
         }
     }
 }
-
+/*!
+*关闭盖子，形成一个新的凸面外壳
+*\param[in]p：将连接到盖子边界的点。
+*/
 void CConvexHull::_close_cap(const CPoint& p)
 {
     using M = CConvexHullMesh;
@@ -173,8 +194,8 @@ void CConvexHull::_close_cap(const CPoint& p)
         M::CVertex* pS = m_pMesh.dart_source(pD);
         M::CVertex* pT = m_pMesh.dart_target(pD);
 
-        //insert your code here
-        //using function m_pMesh.insert_face
+        //在这里插入代码
+        //使用函数m_pMesh。插入面
     }
 }
 
