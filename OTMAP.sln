@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31129.286
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CCGHomework", "CCGHomework", "{428FFFC2-D815-4A0A-B2A4-4788195B1818}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OTHomework", "OTHomework", "{87AA36AA-50BA-4C87-8DE5-59F61A7E6932}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvexHull", "ConvexHull\ConvexHull.vcxproj", "{BFA54837-170E-4371-8AC8-7380F21EB36E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PowerDiagram", "PowerDiagram\PowerDiagram.vcxproj", "{1F3FD0FA-2FD5-415B-95B3-EFCB63630FCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,14 @@ Global
 		{BFA54837-170E-4371-8AC8-7380F21EB36E}.Release|x64.Build.0 = Release|x64
 		{BFA54837-170E-4371-8AC8-7380F21EB36E}.Release|x86.ActiveCfg = Release|Win32
 		{BFA54837-170E-4371-8AC8-7380F21EB36E}.Release|x86.Build.0 = Release|Win32
+		{1F3FD0FA-2FD5-415B-95B3-EFCB63630FCE}.Debug|x64.ActiveCfg = Debug|x64
+		{1F3FD0FA-2FD5-415B-95B3-EFCB63630FCE}.Debug|x64.Build.0 = Debug|x64
+		{1F3FD0FA-2FD5-415B-95B3-EFCB63630FCE}.Debug|x86.ActiveCfg = Debug|Win32
+		{1F3FD0FA-2FD5-415B-95B3-EFCB63630FCE}.Debug|x86.Build.0 = Debug|Win32
+		{1F3FD0FA-2FD5-415B-95B3-EFCB63630FCE}.Release|x64.ActiveCfg = Release|x64
+		{1F3FD0FA-2FD5-415B-95B3-EFCB63630FCE}.Release|x64.Build.0 = Release|x64
+		{1F3FD0FA-2FD5-415B-95B3-EFCB63630FCE}.Release|x86.ActiveCfg = Release|Win32
+		{1F3FD0FA-2FD5-415B-95B3-EFCB63630FCE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +74,7 @@ Global
 		{146C1B31-8C17-4A38-A475-68D039CDC70A} = {428FFFC2-D815-4A0A-B2A4-4788195B1818}
 		{DE37CB66-50E4-4CF5-87D2-7ACBABCAFB27} = {428FFFC2-D815-4A0A-B2A4-4788195B1818}
 		{BFA54837-170E-4371-8AC8-7380F21EB36E} = {87AA36AA-50BA-4C87-8DE5-59F61A7E6932}
+		{1F3FD0FA-2FD5-415B-95B3-EFCB63630FCE} = {87AA36AA-50BA-4C87-8DE5-59F61A7E6932}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A1481560-38C2-4302-B80C-B0B8025509BB}
